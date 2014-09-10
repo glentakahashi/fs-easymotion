@@ -70,7 +70,6 @@ cdmotion() {
     #TODO: make work with bash or zsh
     builtin read -s -k 1 key
     local keyint=$(ord $key)
-    echo $keyint
     if [[ $keyint -ge 97 ]]; then
       if [[ $(($keyint - 97)) -lt j ]]; then
         supercd $DIR $(($keyint - 97))
