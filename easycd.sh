@@ -1,9 +1,7 @@
 #change this to 1 if you would prefer to replace first character instead of add it
 REPLACE_FIRST_CHAR=1
+#change this to 1 if you want to show the root directory (/) as 'a'
 SHOW_ROOT_AS_A=1
-
-#TODO: make customizable and more easily configuraable
-#TODO: also list folders in current directory as letters - maybe make this ,, (a different function)
 
 chr() {
   printf \\$(printf '%03o' $1)
@@ -13,7 +11,7 @@ ord() {
   printf '%d' "'$1"
 }
 
-supercd() {
+cdUp() {
   local DIR=$1
   local j=$(($2+1+(1-$SHOW_ROOT_AS_A)))
   for (( i=0; i<${#DIR}; i++ )); do
@@ -28,11 +26,10 @@ supercd() {
   done
 }
 
-cdmotion() {
+easyCdUp() {
   local DIR=$(pwd)
 
-  #color and settings variables
-  #TODO: make customizable
+  #font variables
   local RED_BOLD_FONT=$'\e[1m\e[91m'
   local NORMAL_FONT=$'\e[0m\e[39m'
 
@@ -72,14 +69,14 @@ cdmotion() {
     local keyint=$(ord $key)
     if [[ $keyint -ge 97 ]]; then
       if [[ $(($keyint - 97)) -lt j ]]; then
-        supercd $DIR $(($keyint - 97))
+        cdUp $DIR $(($keyint - 97))
         return 0;
       else
         echo $DIR2
       fi
     elif [[ $keyint -ge 65 ]]; then
       if [[ $(($keyint - 65 + 26)) -lt j ]]; then
-        supercd $DIR $(($keyint - 65 + 26))
+        cdUp $DIR $(($keyint - 65 + 26))
         return 0;
       else
         echo $DIR2
