@@ -27,6 +27,12 @@ cdUp() {
 }
 
 easyCdUp() {
+  if [[ ! -z $1 ]]; then
+    echo "When you run the command a list of all parent directories"
+    echo "will appear with the first character replaced with a letter."
+    echo "Choose the letter of the directory you wish to go to, and you will cd."
+    return
+  fi
   local DIR=$(pwd)
 
   #font variables

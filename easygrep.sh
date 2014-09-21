@@ -1,26 +1,31 @@
-#set to 1 if easyfind should ignore case
+#set to 1 if easygrep should ignore case
 IGNORE_CASE=1
 COMMAND_ON_FILE=vim
 
-#ez find files in current directory with name
-easyFind() {
+#ez find files which contain text
+easyGrep() {
   local QUERY
   if [[ $IGNORE_CASE -eq 1 ]]; then
-    QUERY="-iname"
+    QUERY="-riI"
   else
-    QUERY="-name"
+    QUERY="-rI"
   fi
+  local DIR
+  local STR
   if [[ -z $1 || $1 = "-h" || $1 = "--help" ]]; then
-    echo "Usage: [directory] <search-string>\nExample: easyFind ~/projects MainController\nuse -h or --help to see this help message again" >&2
+    echo "Usage: [directory] <filename-search-string>\nuse -h or --help to see this help message again" >&2
     return 1;
   elif [[ -z $2 ]]; then
-    find ./* $QUERY "*$1*"
+    DIR=.
+    STR=$1
   else
-    find $1 $QUERY "*$2*"
+    DIR=$1
+    STR=$2
   fi
+  grep $QUERY $STR $DIR
 }
 
-easyFindOpen() {
+easyGrepOpen() {
   local NUM=0
   local RED_BOLD_FONT=$'\e[1m\e[91m'
   local NORMAL_FONT=$'\e[0m\e[39m'
@@ -30,7 +35,7 @@ easyFindOpen() {
     FILES=$FILES$LINE$'\n'
     printf "%s%s %s%s\n" $RED_BOLD_FONT $NUM $NORMAL_FONT $LINE
     ((NUM++))
-  done < <(easyFind $1 $2)
+  done < <(easyGrep $1 $2)
   if [[ ${#FILES} -eq 0 ]]; then
     echo "No results found." >&2
     return 1;
@@ -42,14 +47,7 @@ easyFindOpen() {
   fi
   ((N++))
   LINE=$(printf "%s" "$FILES" | sed "${N}q;d")
-  if [[ -f $LINE ]]; then
-    $COMMAND_ON_FILE $LINE < /dev/tty
-    return 0;
-  elif [[ -d $LINE || -h $LINE ]]; then
-    cd $LINE
-    return 0;
-  else
-    echo "Not a directory or editable file" >&2
-    return 1;
-  fi
+  local INDEX=$(expr index "$LINE" ":")
+  $COMMAND_ON_FILE ${LINE:0:($INDEX-1)} < /dev/tty
+  return 0;
 }
