@@ -21,8 +21,13 @@ As of now fs-easymotion contains 3 functions sets, each for a different purpose:
 
 ## Installation
 
-For each of the function sets you want to install, add the following line to the top of your zshrc:
-> source /location/to/easyfile.sh
+Add the following line to the top of your zshrc, and set FSEM to where the files live:
+```
+FSEM=/location/to/fs-easymotion
+source $FSEM/easycd.sh
+source $FSEM/easygrep.sh
+source $FSEM/easyfind.sh
+```
 
 Now you can either type the commands listed above in terminal, or alias them for fast access like I do. I suggest:
 ```
@@ -38,11 +43,11 @@ alias gg='easyGrepOpen'
 Currently, the files have the following configurable options.
 
 * easycd.sh
-    * REPLACE_FIRST_CHAR - whether or not to replace the first character of the dirs or just prepend it (default 1)
-    * SHOW_ROOT_AS_A - whether or not to show the root directory as 'a' (default 1)
+    * ```REPLACE_FIRST_CHAR=1``` - whether or not to replace the first character of the dirs or just prepend it (default 1)
+    * ```SHOW_ROOT_AS_A=1``` - whether or not to show the root directory as 'a' (default 1)
 * easyfind.sh and easygrep.sh
-    * IGNORE_CASE - 1 to ignore case, 0 to be case sensitive (default 1)
-    * COMMAND_ON_FILE - the command to run when you select a file (default vim)
+    * ```IGNORE_CASE=1``` - 1 to ignore case, 0 to be case sensitive (default 1)
+    * ```COMMAND_ON_FILE=vim``` - the command to run when you select a file (default vim)
 
 ## Screenshots
 
