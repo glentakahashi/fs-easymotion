@@ -43,11 +43,15 @@ alias gg='easyGrepOpen'
 Currently, the files have the following configurable options.
 
 * easycd.sh
-    * ```REPLACE_FIRST_CHAR=1``` - whether or not to replace the first character of the dirs or just prepend it (default 1)
-    * ```SHOW_ROOT_AS_A=1``` - whether or not to show the root directory as 'a' (default 1)
-* easyfind.sh and easygrep.sh
-    * ```IGNORE_CASE=1``` - 1 to ignore case, 0 to be case sensitive (default 1)
-    * ```COMMAND_ON_FILE=vim``` - the command to run when you select a file (default vim)
+    * ```EASYCD_REPLACE_FIRST_CHAR=1``` - whether or not to replace the first character of the dirs or just prepend it (default 1)
+    * ```EASYCD_SHOW_ROOT_AS_A=1``` - whether or not to show the root directory as 'a' (default 1)
+* easyfind.sh
+    * ```EASYFIND_IGNORE_CASE=1``` - 1 to ignore case, 0 to be case sensitive (default 1)
+    * ```EASYFIND_COMMAND_ON_FILE="$EDITOR"``` - the command to run on a selected file (defaults to $EDITOR or vim if unset)
+* easygrep.sh
+    * ```EASYGREP_IGNORE_CASE=1``` - 1 to ignore case, 0 to be case sensitive (default 1)
+    * ```EASYGREP_COMMAND_ON_FILE="$EDITOR"``` - the command to run on a selected file (defaults to $EDITOR or vim if unset)
+    * ```EASYGREP_GREP_OPTION="--color=always"``` - extra options to add to the grep command (default --color=always)
 
 ## Screenshots
 

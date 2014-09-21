@@ -1,7 +1,7 @@
 #change this to 1 if you would prefer to replace first character instead of add it
-REPLACE_FIRST_CHAR=1
+EASYCD_REPLACE_FIRST_CHAR=1
 #change this to 1 if you want to show the root directory (/) as 'a'
-SHOW_ROOT_AS_A=1
+EASYCD_SHOW_ROOT_AS_A=1
 
 chr() {
   printf \\$(printf '%03o' $1)
@@ -13,7 +13,7 @@ ord() {
 
 cdUp() {
   local DIR=$1
-  local j=$(($2+1+(1-$SHOW_ROOT_AS_A)))
+  local j=$(($2+1+(1-$EASYCD_SHOW_ROOT_AS_A)))
   for (( i=0; i<${#DIR}; i++ )); do
     CHAR=${DIR:$i:1}
     if [[ $CHAR = "/" ]]; then
@@ -43,7 +43,7 @@ easyCdUp() {
   #TODO: make this work for paths longer than 52 chars
   local DIR2=$DIR
   local j=0
-  if [[ $SHOW_ROOT_AS_A -eq 1 ]]; then
+  if [[ $EASYCD_SHOW_ROOT_AS_A -eq 1 ]]; then
     DIR2=$RED_BOLD_FONT'a'$NORMAL_FONT$DIR
     j=1
   fi
@@ -53,7 +53,7 @@ easyCdUp() {
       #TODO: refactor
       if [[ $j -lt 52 ]]; then
         local HEAD=${DIR2:0:$i+1}$RED_BOLD_FONT
-        local TAIL=$NORMAL_FONT${DIR2:$i+1+$REPLACE_FIRST_CHAR:${#DIR2}-$i}
+        local TAIL=$NORMAL_FONT${DIR2:$i+1+$EASYCD_REPLACE_FIRST_CHAR:${#DIR2}-$i}
         local CHAR='Z'
         if [[ $j -lt 26 ]]; then
           CHAR=$(chr $(($j+97)))
