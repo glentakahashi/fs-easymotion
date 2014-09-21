@@ -9,7 +9,7 @@ easyFind() {
   else
     QUERY="-name"
   fi
-  find . $QUERY "*$1*"
+  find ./* $QUERY "*$1*"
 }
 
 easyFindOpen() {
@@ -17,25 +17,30 @@ easyFindOpen() {
   local RED_BOLD_FONT=$'\e[1m\e[91m'
   local NORMAL_FONT=$'\e[0m\e[39m'
   #find our files
-  local FILES=`ff $1`
-  printf "%s" $FILES |
-  while IFS= read -r line; do
-    printf "%s%s%s%s\n" $RED_BOLD_FONT $NUM $NORMAL_FONT $line
+  local FILES=""
+  while IFS= read -r LINE || [[ -n "$LINE" ]]; do
+    FILES=$FILES$LINE$'\n'
+    printf "%s%s %s%s\n" $RED_BOLD_FONT $NUM $NORMAL_FONT $LINE
     ((NUM++))
-  done
-  read NUM
+  done < <(easyFind $1)
+  read N
   local i=0
-  printf "%s" $FILES |
-  while IFS= read -r line; do
-    if [[ "$i" = $NUM ]]; then
-      if [[ -f $line ]]; then
-        vim $line < /dev/tty
+  printf %s "$FILES" |
+  while IFS= read -r LINE2 || [[ -n "$LINE2" ]]; do
+    if [[ "$i" = $N ]]; then
+      if [[ -f $LINE2 ]]; then
+        vim $LINE2 < /dev/tty
+        return 0;
+      elif [[ -d $LINE2 || -h $LINE2 ]]; then
+        cd $LINE2
         return 0;
       else
-        cd $line
-        return 0;
+        echo "Not a directory or editable file"
+        return 1;
       fi
     fi
     ((i++))
   done
+  echo "Invalid number!"
+  return 1;
 }
