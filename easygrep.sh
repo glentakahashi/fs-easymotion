@@ -1,6 +1,8 @@
 #set to 1 if easygrep should ignore case
 EASYGREP_IGNORE_CASE=1
 
+#TODO: allow multiple parameters for finding files that contain two or more words
+
 #command to run for files
 EASYGREP_FILE_COMMAND="$EDITOR"
 if [[ -z $EASYGREP_FILE_COMMAND ]]; then

@@ -3,6 +3,8 @@ EASYCD_REPLACE_FIRST_CHAR=1
 #change this to 1 if you want to show the root directory (/) as 'a'
 EASYCD_SHOW_ROOT_AS_A=1
 
+#TODO: make it so you can have this "text" as part of prompt so you can just type a letter
+
 chr() {
   printf \\$(printf '%03o' $1)
 }
