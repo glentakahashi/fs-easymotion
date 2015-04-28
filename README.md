@@ -57,12 +57,12 @@ Currently, the files have the following configurable options.
 
 ### easycd.sh
 
-![easycd.sh](https://i.imgur.com/JEBvs6x.gif)
+![easycd.sh](http://files.glentaka.com/easycd.gif)
 
 ### easyfind.sh
 
-![easyfind.sh](https://i.imgur.com/mkH2OMV.gif)
+![easyfind.sh](http://files.glentaka.com/easyfind.gif)
 
 ### easygrep.sh
 
-![easygrep.sh](https://i.imgur.com/3xbIOwo.gif)
+![easygrep.sh](http://files.glentaka.com/easygrep.gif)
